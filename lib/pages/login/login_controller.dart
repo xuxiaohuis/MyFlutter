@@ -28,4 +28,12 @@ class LoginController extends BaseController<ApiService> with WidgetsBindingObse
 
   }
 
+  @override
+  void dispose() {
+    ///释放内存防止内存泄漏
+    accountEditController.clear();
+    passwordEditController.clear();
+    super.dispose();
+  }
+
 }
