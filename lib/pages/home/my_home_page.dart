@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myflutter/common/ext/asset_ext.dart';
-import 'home_page_logic.dart';
+import 'home_page_controller.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final logic = Get.find<HomePageLogic>();
+  final logic = Get.find<HomePageController>();
   final List<BottomNavigationBarItem> bottomNavigationBarItems = [
     _customBottomNavigationBarItem("nav_home".png, "nav_home".lottie, "主页"),
     _customBottomNavigationBarItem(

@@ -10,7 +10,7 @@ import 'package:myflutter/widget/keep_alive_erapper.dart';
 import '../../common/event/index_navigation_index_changed_event.dart';
 
 /// WidgetsBindingObserver 是用来监听生命周期改变的
-class HomePageLogic extends GetxController with WidgetsBindingObserver{
+class HomePageController extends GetxController with WidgetsBindingObserver{
   RxInt index = 0.obs;
   PageController pageController = PageController(initialPage: 0);
 

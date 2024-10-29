@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:myflutter/common/base/view_state.dart';
 import 'package:myflutter/common/util/log_util.dart';
 import 'base_controller.dart';
-import 'cpn_default_view_state.dart';
+import 'default_view_state.dart';
 
 ///常用页面无状态page封装，基本依赖Controller+OBX实现原有State+StatefulWidget效果
 abstract class BaseStatelessWidget<T extends BaseController> extends GetView<T>{
-  const BaseStatelessWidget({super.key, this.bindViewState = true});
+  const BaseStatelessWidget({super.key, this.bindViewState = false});
 
   final bool bindViewState;
 

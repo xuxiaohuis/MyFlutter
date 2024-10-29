@@ -10,6 +10,9 @@ class LoginController extends BaseController<ApiService> with WidgetsBindingObse
   RxString account = "".obs;
   RxString password = "".obs;
 
+  TextEditingController accountEditController = TextEditingController();
+  TextEditingController passwordEditController = TextEditingController();
+
 
   @override
   void loadData() {
