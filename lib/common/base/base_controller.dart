@@ -52,9 +52,13 @@ abstract class BaseController<M> extends SuperController{
     VoidCallback? failCallback,
   }) {
 
-    if (bindViewState && showLoadingDialog) {
+    if (bindViewState) {
       LogD("showLoadingDialog");
       viewState.value = ViewStateLoading();
+    }
+
+    if (showLoadingDialog) {
+      Get.showLoading();
     }
 
     sendRequestBlock.then((result) {
@@ -62,7 +66,9 @@ abstract class BaseController<M> extends SuperController{
         bool isEmpty = (judgeEmptyCallback != null)
             ? judgeEmptyCallback(result)
             : result.isEmpty();
-
+        if (showLoadingDialog) {
+          Get.hideLoading();
+        }
         if (!isEmpty || (emptyAsSuccess && isEmpty)) {
           if (bindViewState) {
             viewState.value = ViewStateSuccess(result.data);
@@ -74,6 +80,10 @@ abstract class BaseController<M> extends SuperController{
           if (bindViewState) {
             viewState.value = ViewStateEmpty();
           }
+          if (showLoadingDialog) {
+            Get.hideLoading();
+            showToast("${result.msg}(${result.code})");
+          }
           if (emptyCallback != null) {
             emptyCallback();
           }
@@ -81,6 +91,10 @@ abstract class BaseController<M> extends SuperController{
       } else {
         if (bindViewState) {
           viewState.value = ViewStateFail(result.code, result.msg);
+        }
+        if (showLoadingDialog) {
+          Get.hideLoading();
+          showToast("${result.msg}(${result.code})");
         }
         if (failCallback != null) {
           failCallback();
@@ -91,6 +105,10 @@ abstract class BaseController<M> extends SuperController{
       if (bindViewState) {
         viewState.value =
             ViewStateError(requestException.code, requestException.message);
+      }
+      if (showLoadingDialog) {
+        Get.hideLoading();
+        showToast("${requestException.message}(${requestException.code})");
       }
       if (failCallback != null) {
         failCallback();
