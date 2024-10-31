@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart' show debugPrint;
 import 'package:myflutter/http/models/account_generate_resp_entity.dart';
 import 'package:myflutter/http/models/joke_detail_entity.dart';
+import 'package:myflutter/http/models/main_tab_item_entity.dart';
 
 JsonConvert jsonConvert = JsonConvert();
 
@@ -163,6 +164,10 @@ class JsonConvert {
       return data.map<JokeDetailUser>((Map<String, dynamic> e) =>
           JokeDetailUser.fromJson(e)).toList() as M;
     }
+    if (<MainTabItemEntity>[] is M) {
+      return data.map<MainTabItemEntity>((Map<String, dynamic> e) =>
+          MainTabItemEntity.fromJson(e)).toList() as M;
+    }
 
     debugPrint("$M not found");
 
@@ -189,6 +194,7 @@ class JsonConvertClassCollection {
     (JokeDetailInfo).toString(): JokeDetailInfo.fromJson,
     (JokeDetailJoke).toString(): JokeDetailJoke.fromJson,
     (JokeDetailUser).toString(): JokeDetailUser.fromJson,
+    (MainTabItemEntity).toString(): MainTabItemEntity.fromJson,
   };
 
   bool containsKey(String type) {
