@@ -13,11 +13,23 @@ class MainPageController extends BaseController<ApiService> with GetSingleTicker
   RxInt index = 0.obs;
   final List<String> tabs = ['tab1', 'tab2'];
   late TabController tabController;
+  late List<String> bannerImages = <String>[].obs;
 
   final List<Widget> navPages = [
     KeepAliveWrapper(child: MainTabPage1()),
     KeepAliveWrapper(child: MainTabPage2()),
   ];
+
+  List<String> getImages(){
+    bannerImages.clear();
+    bannerImages.add("https://www.itying.com/images/flutter/1.png");
+    bannerImages.add("https://www.itying.com/images/flutter/2.png");
+    bannerImages.add("https://www.itying.com/images/flutter/3.png");
+    bannerImages.add("https://www.itying.com/images/flutter/4.png");
+    bannerImages.add("https://www.itying.com/images/flutter/5.png");
+    bannerImages.add("https://www.itying.com/images/flutter/6.png");
+    return bannerImages;
+  }
 
   @override
   void onInit() {

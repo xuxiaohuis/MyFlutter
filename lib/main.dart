@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:myflutter/pages/home/home_page_controller.dart';
 import 'package:myflutter/pages/home/my_home_binding.dart';
 import 'package:myflutter/pages/home/my_home_page.dart';
-import 'package:myflutter/pages/login/login_binding.dart';
-import 'package:myflutter/pages/login/login_page.dart';
 import 'package:myflutter/router/AppRoutes.dart';
 import 'package:myflutter/widget/default_refresh_indicator.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'http/injection.dart';
 
 void main() async {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart'
     hide RefreshIndicator, RefreshIndicatorState;
+import 'package:flutter/material.dart' hide RefreshIndicator, RefreshIndicatorState;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myflutter/common/ext/asset_ext.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 /// 自定义下拉刷新指示器
 class DefaultRefreshHeader extends RefreshIndicator {
