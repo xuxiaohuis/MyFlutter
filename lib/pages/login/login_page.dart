@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../common/base/base_stateless_widget.dart';
 import '../../res/colors.dart';
 import 'login_controller.dart';
@@ -16,7 +17,7 @@ class LoginPage extends BaseStatelessWidget<LoginController> {
           child: Container(
         decoration: BoxDecoration(
             color: ColorsUtil.color_FFFF413D,
-            borderRadius: BorderRadius.circular(12)),
+            borderRadius: BorderRadius.circular(12.r)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -33,8 +34,8 @@ class LoginPage extends BaseStatelessWidget<LoginController> {
               decoration: BoxDecoration(
                   color: ColorsUtil.color_FFFFFFFF,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(28.0),
-                      topRight: Radius.circular(28.0),
+                      topLeft: Radius.circular(28.0.r),
+                      topRight: Radius.circular(28.0.r),
                       bottomLeft: Radius.zero,
                       bottomRight: Radius.zero)),
               child: Padding(padding: EdgeInsets.symmetric(horizontal: 34),child: _loginWidget(),)
@@ -87,7 +88,7 @@ class LoginPage extends BaseStatelessWidget<LoginController> {
         SizedBox(height: 24,),
         DecoratedBox(decoration: BoxDecoration(
             color: ColorsUtil.color_FFFF413D,
-            borderRadius: BorderRadius.circular(20)),
+            borderRadius: BorderRadius.circular(20.r)),
           child:Padding(padding: EdgeInsets.symmetric(vertical: 10,horizontal: 90),child:
           Text('一键注册',style: TextStyle(color: ColorsUtil.color_FFFFFFFF),)
             ,)

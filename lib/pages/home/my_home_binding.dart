@@ -13,7 +13,7 @@ class MyHomeBinding extends Bindings{
   void dependencies() {
     Get.lazyPut(()=>HomePageController());
     Get.lazyPut(()=>MainPageController());
-    // Get.lazyPut(()=>MainTabPage1Controller());
+    Get.lazyPut(()=>MainTabPage1Controller());
     Get.lazyPut(()=>MainTabPage2Controller());
   }
 

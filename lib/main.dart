@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myflutter/pages/home/my_home_binding.dart';
@@ -11,6 +12,7 @@ import 'http/injection.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Injection().init();
+  debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
 
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(750, 1334),
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
         builder: (context, child) => _defaultRefreshConfiguration(
           GetMaterialApp(
             title: 'Flutter Demo',

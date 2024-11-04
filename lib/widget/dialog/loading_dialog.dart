@@ -20,7 +20,7 @@ class LoadingDialog extends Dialog {
             color: const Color(0xFFFFFFFF),
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
-                Radius.circular(16.w),
+                Radius.circular(16.r),
               ),
             ),
           ),

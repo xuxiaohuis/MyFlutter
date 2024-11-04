@@ -11,7 +11,7 @@ import 'main_tab_page2.dart';
 class MainPageController extends BaseController<ApiService> with GetSingleTickerProviderStateMixin{
 
   RxInt index = 0.obs;
-  final List<String> tabs = ['tab1', 'tab2'];
+  final List<String> tabs = ['短剧影视', '小说故事'];
   late TabController tabController;
   late List<String> bannerImages = <String>[].obs;
 

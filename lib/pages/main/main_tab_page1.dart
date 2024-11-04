@@ -1,35 +1,65 @@
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:myflutter/common/util/log_util.dart';
+import 'package:myflutter/pages/main/main_tab_page1_controller.dart';
 import 'package:myflutter/pages/main/widget/main_tab_page1_item.dart';
-import '../../common/base/base_stateless_widget.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import '../../common/util/toast_util.dart';
 import '../../http/models/main_tab_item_entity.dart';
-import '../../res/colors.dart';
-import '../../router/AppRoutes.dart';
-import 'main_tab_page1_controller.dart';
 
-class MainTabPage1 extends StatelessWidget {
-  MainTabPage1({super.key});
+class MainTabPage1 extends StatefulWidget  {
+  const MainTabPage1({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _RefreshPageState();
+  }
+}
+
+class _RefreshPageState extends State<MainTabPage1>{
 
   RxList<MainTabItemEntity> myList = <MainTabItemEntity>[].obs;
 
   @override
   Widget build(BuildContext context) {
     addList();
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (context, index) {
-        return InkWell(
-          child: MainTabPage1Item(item : myList[index]),
-          onTap: () {
-            showToast("${myList[index].name}----");
-          },
-        );
+    final controller = Get.find<MainTabPage1Controller>();
+    return SmartRefresher(
+      controller: controller.refreshController,
+      header: MaterialClassicHeader(),
+      footer: ClassicFooter(),
+      enablePullUp: true,
+      enablePullDown: true,
+      onRefresh:_onRefresh,
+      onLoading: ()=>{
+        ///上拉加载回调
+
       },
-      itemCount: myList.length,
+      child: GridView.builder(
+        gridDelegate:
+        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemBuilder: (context, index) {
+          return InkWell(
+            child: MainTabPage1Item(item: myList[index]),
+            onTap: () {
+              showToast("${myList[index].name}----");
+            },
+          );
+        },
+        itemCount: myList.length,
+      ),
     );
+  }
+
+  Future<void> _onRefresh(){
+    return Future.delayed(Duration(seconds: 2),(){
+      LogD("刷新回调");
+      // 延迟2s完成刷新
+      // setState(() {
+      //   _refreshController.refreshCompleted();
+      // });
+    });
   }
 
   void addList(){
@@ -63,4 +93,5 @@ class MainTabPage1 extends StatelessWidget {
     myList.add(item1);
     myList.add(item2);
   }
+
 }

@@ -36,7 +36,7 @@ dependencies:
   # 事件总线 https://pub-web.flutter-io.cn/packages/event_bus/install
   event_bus: ^2.0.0
   # 屏幕适配：https://pub-web.flutter-io.cn/packages/flutter_screenutil/install
-  flutter_screenutil: ^5.8.4
+  flutter_screenutil: ^5.9.3
   # lottie动画 https://pub-web.flutter-io.cn/packages/lottie/install
   lottie: ^2.4.0
   # 下拉刷新  https://pub.dev/packages/pull_to_refresh_flutter3

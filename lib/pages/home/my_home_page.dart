@@ -27,13 +27,13 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: defaultImage == null
             ? const Icon(null)
             : Image.asset(defaultImage,
-            width: 44.w,
-            height: 44.w),
+            width: 22.w,
+            height: 22.w),
         activeIcon: activeImage == null
             ? const Icon(null)
             : RepaintBoundary(
             child: Lottie.asset(activeImage,
-                repeat: false, width: 44.w, height: 44.w)
+                repeat: false, width: 22.w, height: 22.w)
         ),
         label: label
     );
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: logic.navPages,
         ),
         floatingActionButtonLocation:
-        FloatingActionButtonLocation.miniCenterDocked,
+        FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomNavigationBar(
           items: bottomNavigationBarItems,
           elevation: 8.0,
@@ -59,14 +59,23 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           currentIndex: logic.index.value,
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color(0xFF3F5BE1),
-          elevation: 8.0,
-          child: Image.asset("assets/image/nav_home.png",
-              width: 72.w, height: 72.w, color: Colors.white),
-          onPressed: () {
-            // AppRoutes.jumpPage(AppRoutes.publishPage, needLogin: true);
-          },
+        floatingActionButton: Container(
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(//实现圆
+              borderRadius: BorderRadius.circular(40.r),
+              color: Colors.white,
+            ),
+            margin: EdgeInsets.only(top:10),//外部margin
+            padding: EdgeInsets.all(8), //内部margin
+            child: FloatingActionButton(
+              shape: CircleBorder(),
+              elevation: 0,
+              onPressed: () {
+                // AppRoutes.jumpPage(AppRoutes.publishPage, needLogin: true);
+              },
+              child: Icon(Icons.add),
+            )
         )
     ));
   }
