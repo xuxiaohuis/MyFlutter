@@ -1,6 +1,6 @@
-
- import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_null_safety_flutter3/flutter_swiper_null_safety_flutter3.dart';
 import 'package:get/get.dart';
@@ -9,49 +9,142 @@ import 'package:myflutter/pages/main/main_page_controller.dart';
 import 'package:myflutter/res/colors.dart';
 import '../../router/AppRoutes.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin{
+
+  final ScrollController _scrollController = ScrollController();
+
+  double appBarTitleOpacity = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MainPageController>();
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        bottom: PreferredSize(
-            preferredSize: Size(double.infinity, 260.h),
-            child: Column(
-              children: [
-                _title(),
-                _banner(controller),
-                Container(
-                  margin: EdgeInsets.only(left: 16.w,top: 16.h,right: 16.w,bottom: 16.h),
-                  child: Flex(
-                    direction: Axis.horizontal,
-                    children: [
-                      _centerIcons("ic_search", "推广计划"),
-                      _centerIcons("ic_search", "推广计划"),
-                      _centerIcons("ic_search", "推广计划"),
-                      _centerIcons("ic_search", "推广计划"),
-                      _centerIcons("ic_search", "推广计划")
-                    ],
-                  ),
+        extendBodyBehindAppBar: true,
+        body: NestedScrollView(
+          controller: _scrollController,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              _buildAppBar(controller),
+              SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _SliverAppBarDelegate(_tabBar(controller),Colors.white))
+            ];
+          },
+          body: TabBarView(
+            controller: controller.tabController,
+            children: controller.navPages,
+          ),
+        ));
+  }
+
+  SliverAppBar _buildAppBar(MainPageController controller) {
+    return SliverAppBar(
+      pinned: false,
+      floating: false,
+      snap: false,
+      expandedHeight: 260.h,
+      bottom: PreferredSize(
+          preferredSize: Size(double.infinity, 260.h),
+          child: Column(
+            children: [
+              _title(),
+              _banner(controller),
+              Container(
+                margin: EdgeInsets.only(
+                    left: 16.w,
+                    top: 16.h,
+                    right: 16.w,
+                    bottom: 16.h),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    _centerIcons("ic_search", "推广计划"),
+                    _centerIcons("ic_search", "推广计划"),
+                    _centerIcons("ic_search", "推广计划"),
+                    _centerIcons("ic_search", "推广计划"),
+                    _centerIcons("ic_search", "推广计划")
+                  ],
                 ),
-                _topBar(controller)
-              ],
-            )),
-      ),
-      body: TabBarView(
-        controller: controller.tabController,
-        children: controller.navPages,
-      ),
-      backgroundColor: Color(0x24FAD956),
+              ),
+              // _topBar(controller)
+            ],
+          )),
     );
   }
 }
 
-Widget _centerIcons(String image,String title){
+ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar tabBar;
+  Color backgroundColor;//需要设置的背景色
+
+  _SliverAppBarDelegate(this.tabBar,this.backgroundColor);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: _getBackgroundColor(shrinkOffset),
+      child: Padding(
+        padding: EdgeInsets.only(right: 16.w),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(
+              width: 220.w,
+              child: tabBar,
+            ),
+            Expanded(
+              flex: 1,
+              child: SizedBox(),
+            ),
+            InkWell(
+              child: Hero(
+                  tag: 'ic_search',
+                  child: Image.asset(
+                    'ic_search'.webp,
+                    width: 22.w,
+                    height: 22.h,
+                  )),
+              onTap: () {
+                Get.toNamed(AppRoutes.loginPage);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Color _getBackgroundColor(double shrinkOffset) {
+    // 根据滑动高度计算背景颜色
+    double opacity = shrinkOffset / maxExtent;
+    return Colors.white.withOpacity(opacity);
+  }
+
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+}
+
+Widget _centerIcons(String image, String title) {
   return Expanded(
     flex: 1,
     child: SizedBox(
@@ -63,14 +156,17 @@ Widget _centerIcons(String image,String title){
             width: 40.w,
             height: 40.h,
           ),
-          Text(title,style: TextStyle(fontSize: 12.sp),)
+          Text(
+            title,
+            style: TextStyle(fontSize: 12.sp),
+          )
         ],
       ),
     ),
   );
 }
 
-Widget _banner(MainPageController controller){
+Widget _banner(MainPageController controller) {
   return Container(
     height: 140.h,
     width: double.infinity,
@@ -99,13 +195,13 @@ Widget _banner(MainPageController controller){
   );
 }
 
-Widget _title(){
+Widget _title() {
   return Row(
     children: [Text("榕乐推"), _icons("ic_main_account", "推广账号")],
   );
 }
 
-Widget _icons(String icon,String text){
+Widget _icons(String icon, String text) {
   return SizedBox(
     width: 98.w,
     height: 41.h,
@@ -138,32 +234,7 @@ Widget _icons(String icon,String text){
   );
 }
 
-Widget _topBar(MainPageController controller){
-  return Padding(padding: EdgeInsets.only(right: 16.w),child: Row(
-    mainAxisSize: MainAxisSize.max,
-    children: [
-      SizedBox(
-        width: 220.w,
-        child: _tabBar(controller),
-      ),
-      Expanded(flex: 1,child: SizedBox(),),
-      InkWell(
-        child: Hero(
-            tag: 'ic_search',
-            child: Image.asset(
-              'ic_search'.webp,
-              width: 22.w,
-              height: 22.h,
-            )),
-        onTap: () {
-          Get.toNamed(AppRoutes.loginPage);
-        },
-      )
-    ],
-  ),);
-}
-
-Widget _tabBar(MainPageController controller) {
+TabBar _tabBar(MainPageController controller) {
   return TabBar(
     dividerColor: Colors.transparent,
     labelColor: ColorsUtil.color_CC000000,
@@ -174,15 +245,8 @@ Widget _tabBar(MainPageController controller) {
     indicatorWeight: 2,
     indicatorSize: TabBarIndicatorSize.label,
     tabs: controller.tabs.map((tab) {
-      return Container(
-        height: 23.h,
-        width: 64.w,
-        alignment: Alignment.center,
-        child: Text(
-          tab,
-          textAlign: TextAlign.center,
-          // style: TextStyle(fontSize: 14.sp),
-        ),
+      return Tab(
+        text: tab,
       );
     }).toList(),
     controller: controller.tabController,
