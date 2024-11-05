@@ -3,11 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:myflutter/common/event/app_lifecycle_change_event.dart';
 import 'package:myflutter/common/util/event_bus_manager.dart';
-import 'package:myflutter/pages/discovery/discovery_page.dart';
 import 'package:myflutter/pages/main/main_page.dart';
 import 'package:myflutter/widget/keep_alive_erapper.dart';
-
 import '../../common/event/index_navigation_index_changed_event.dart';
+import '../mine/mine_page.dart';
 
 /// WidgetsBindingObserver 是用来监听生命周期改变的
 class HomePageController extends GetxController with WidgetsBindingObserver{
@@ -16,7 +15,7 @@ class HomePageController extends GetxController with WidgetsBindingObserver{
 
   final List<Widget> navPages = [
     const KeepAliveWrapper(child: MainPage()),
-    KeepAliveWrapper(child: DiscoveryPage()),
+    KeepAliveWrapper(child: MinePage()),
   ];
 
   void navigate(int index){

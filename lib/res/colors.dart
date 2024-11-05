@@ -12,4 +12,9 @@ class ColorsUtil{
   static const color_CC000000 = Color(0xCC000000);
   static const color_99000000 = Color(0x99000000);
   static const color_FFF04BF3 = Color(0xFFF04BF3);
+  static const color_4DFFFFFF = Color(0x4DFFFFFF);
+  static const color_ADFFFFFF = Color(0xADFFFFFF);
+  static const color_26164F84 = Color(0x26164F84);
+  static const color_66000000 = Color(0x66000000);
+  static const color_FF000000 = Color(0xFF000000);
 }
