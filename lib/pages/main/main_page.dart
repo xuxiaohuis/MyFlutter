@@ -31,6 +31,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
     final controller = Get.find<MainPageController>();
     return Scaffold(
         extendBodyBehindAppBar: true,
+        // appBar: PreferredSize(preferredSize: Size(double.infinity, ScreenUtil().statusBarHeight), child: AppBar()),
         body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -53,9 +54,9 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
       pinned: false,
       floating: false,
       snap: false,
-      expandedHeight: 260.h,
+      expandedHeight: 230.h,
       bottom: PreferredSize(
-          preferredSize: Size(double.infinity, 260.h),
+          preferredSize: Size(double.infinity, 230.h),
           child: Column(
             children: [
               _title(),
@@ -95,33 +96,31 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: _getBackgroundColor(shrinkOffset),
-      child: Padding(
-        padding: EdgeInsets.only(right: 16.w),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(
-              width: 220.w,
-              child: tabBar,
-            ),
-            Expanded(
-              flex: 1,
-              child: SizedBox(),
-            ),
-            InkWell(
-              child: Hero(
-                  tag: 'ic_search',
-                  child: Image.asset(
-                    'ic_search'.webp,
-                    width: 22.w,
-                    height: 22.h,
-                  )),
-              onTap: () {
-                Get.toNamed(AppRoutes.loginPage);
-              },
-            )
-          ],
-        ),
+      padding: EdgeInsets.only(right: 16.w,top: ScreenUtil().statusBarHeight),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            width: 220.w,
+            child: tabBar,
+          ),
+          Expanded(
+            flex: 1,
+            child: SizedBox(),
+          ),
+          InkWell(
+            child: Hero(
+                tag: 'ic_search',
+                child: Image.asset(
+                  'ic_search'.webp,
+                  width: 22.w,
+                  height: 22.h,
+                )),
+            onTap: () {
+              Get.toNamed(AppRoutes.loginPage);
+            },
+          )
+        ],
       ),
     );
   }
@@ -133,10 +132,10 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   }
 
   @override
-  double get maxExtent => tabBar.preferredSize.height;
+  double get maxExtent => tabBar.preferredSize.height+ScreenUtil().statusBarHeight;
 
   @override
-  double get minExtent => tabBar.preferredSize.height;
+  double get minExtent => tabBar.preferredSize.height+ScreenUtil().statusBarHeight;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
